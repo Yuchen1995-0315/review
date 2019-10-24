@@ -1,0 +1,34 @@
+前情回顾
+
+1.  tcp 收发细节
+
+    缓冲区  粘包
+
+2.  udp
+    服务端： socket->bind->recvfrom/sendto->close()
+    客户端: socket->sendto/recvfrom->close()
+
+3.  套接字属性 ： fileno() getpeername()  setsockopt()
+
+4.  tcp udp编程区别
+
+5.  struct模块
+
+    pack()
+    unpack()
+
+
+练习： 求100000以内质数之和，
+      将过程封装为函数， 可以使用sum()函数求和
+      统计函数执行所用时间
+
+作业： 1. 理解fork进程用法
+      2. 思考聊天室思路
+      3. socket 复习
+
+
+
+
+
+
+

@@ -1,0 +1,127 @@
+前情回顾
+
+1. 改 删
+   update [tb] set [col=val,...] where ...;
+
+   delete from [tb] where ...;
+
+2. alter
+
+   alter table [tb] [add/drop/modify/change/rename]
+
+3. 时间类型
+   date   xxxx-xx-xx
+   datetime  xxxx-xx-xx hh:mm:ss
+   time hh:mm:ss
+   year
+
+   * 可以按时间排序
+   select * from marathon order by performance;
+
+   now()  --> datetime
+   curdate() --> date
+   curtime() --> time
+
+   where [col] [比较运算符] [now() +/- interval 时间间隔]
+
+4. 高级查询语句
+
+   模糊
+   where col LIKE "A%"   (%  _)
+
+   正则
+   where col REGEXP "^.+"
+
+   起别名
+   name as 姓名
+
+   排序 order by
+
+   限制 limit
+
+   联合查询 union [all | distinct]
+
+   子查询
+     * from 后
+     * where 中
+
+5. 聚合操作
+
+(7)     SELECT
+(8)     [DISTINCT] <select_list>
+(1)     FROM <left_table>
+(3)     <join_type> JOIN <right_table>
+(2)     ON <join_condition>
+(4)     WHERE <where_condition>
+(5)     GROUP BY <group_by_list>
+(6)     HAVING <having_condition>
+(9)     ORDER BY <order_by_condition>
+(10)    LIMIT <limit_number>
+
+   聚合函数： avg()  max() min()  sum()  count()
+
+   分组： group by [col]
+      可以按照多个字段分组，此时多个字段的值必须全都一样为一组
+      select age,sex,count(*) from class1 group by sex,age;
+
+   聚合筛选： having
+
+   去重： distinct
+
+6. 索引操作
+
+   优点 * 提高查询效率
+
+   缺点 * 占用额外空间，降低写入效率
+
+   什么时候创建： 数据量比较大，经常查询，不宜一个表创建过多索引
+
+   三类 ： primary key ， index ， unique
+
+   create table [tb] (col type ...,index(col));
+
+   增加索引： create index [indexName] on [tb(col)];
+
+
+   desc --> key
+   show index from [tb]
+
+   通过辅助工具查看性能
+   set profiling = 1;    打开文档记录
+
+   show profiles;  执行select语句后查看语句运行时间
+
+ 创建多对多关联
+
+运动员表
+ create table athlete(id int not null auto_increment,name varchar(32),age tinyint,country varchar(50),description text,primary key(id));
+
+项目表
+create table item(id int not null auto_increment,rname varchar(32) not null,primary key(id));
+
+关联表
+create table athlete_item (aid int not null,tid int not null,primary key(aid,tid),constraint athlete_fk foreign key(aid) references athlete(id),constraint item_fk foreign key(tid) references item(id));
+
+作业 ： 1. 对语句总结熟练
+           增删改查 alter  数据库和数据表创建
+           索引  聚合
+
+       2. books --> book
+
+          作者表
+          出版社表
+          图书表
+
+          * 设计三个表的内容
+          * 画er模型，设计三个表的关系
+          * 创建出相应的表来
+
+
+
+
+
+
+
+
+
+

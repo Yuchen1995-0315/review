@@ -1,0 +1,81 @@
+﻿1.创建库eshop,并指定编码为utf8
+
+2.创建订单表(orders,utf8编码)，包含如下字段：
+  order_id      订单编号，字符串，32字节
+  cust_id       客户编号，字符串，32字节
+  order_date    下单时间，DateTime类型
+  status        订单状态，枚举类型，取值范围
+                ('1', '2', '3', '4', '5', '6', '9')
+                1-待付款   2-待发货
+                3-已发货   4-已收货
+                5-申请退货 6-已退货
+                9-已废弃
+  products_num  订单包含的商品数量
+  amt           订单总金额，浮点数，两位小数
+
+3.至少插入5笔数据(要求数据库看上去尽量真实)
+
+4.编写如下SQL语句
+  1) 查找所有待付款订单
+  2) 查找所有已发货、已收货、申请退货订单
+  3) 查找某个客户的待发货订单
+  4) 根据订单编号，查找订单下单日期、订单状态
+  5) 查找某个客户所有订单，并按照下单时间倒序排列
+  6) 统计每种状态的订单数量
+  7) 查询单笔订单最大值/最小值/平均值，所有订单总金额
+  8) 查询金额最大的前三笔订单
+  9) 在表的最后，添加两个字段：
+    invoice         开票状态，整数
+    invoice_date    开票日期，DateTime类型
+  10) 修改某个订单状态为“已收货”
+  11) 删除已废弃的订单
+1.
+create database eshop default charset=utf8;
+
+2.
+create table orders(
+     order_id varchar(32),
+     cust_id varchar(32),
+     order_date datetime,
+     status enum('1', '2', '3', '4', '5', '6', '9'),
+     products_num int,
+     amt decimal(16,2)
+     )default charset=utf8;
+
+3.
+ insert into orders values
+('201801030001', '0001', now(), '1', 11, 111.11),
+('201801030002', '0002', now(), '2', 12, 222.22),
+('201801030003', '0003', now(), '3', 13, 333.33),
+('201801030004', '0004', now(), '4', 14, 444.44),
+('201801030005', '0005', now(), '5', 15, 555.55),
+('201801030006', '0006', now(), '6', 16, 666.66),
+('201801030009', '0009', now(), '9', 19, 999.99),
+('201801030010', '0003', now(), '4', 17, 777.77);
+
+4.
+1)
+select * from orders where status='1';
+2)
+select * from orders where status in ('3', '4', '5');
+3)
+select * from orders where  cust_id='0002' and  status='2';
+4)
+select order_date, status
+from orders where order_id='201801030006';
+5)
+select * from orders where cust_id='0003' order by order_date desc;
+6)
+select status"订单状态" ,count(*)"数量" from orders group by status;
+7)
+select max(amt),min(amt),sum(amt),avg(amt)  from orders;
+
+8)
+select * from orders order by amt desc limit 3;
+9)
+alter table orders add invoice int;
+alter table orders add invoice_date datetime;
+10)
+update orders set status='4' where order_id='201801030001';
+11)
+delete from orders where status='9';

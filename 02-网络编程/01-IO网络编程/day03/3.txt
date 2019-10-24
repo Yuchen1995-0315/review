@@ -1,0 +1,67 @@
+前情回顾
+
+1.  Linux 压缩操作
+    zip  unzip   -r
+    tar   gz格式    tar  -czf  file.tar.gz  filelist
+          bz2格式   tar  -cjf  file.tar.gz  filelist
+
+          解压 ： tar  -xvf
+
+2.  apt-get  install  [package]
+             remove
+
+    dpkg -i
+
+3. 用户管理
+   adduser
+   passwd
+   deluser
+
+   sudo  vipw
+
+4. ssh 服务   username@ip
+
+   ssh 登录     远程登录
+   scp         远程拷贝
+   ssh-keygen  设置秘钥
+
+5. 文件IO
+
+   文件读写过程 ：  open() 打开文件
+                  read/write  读写文件
+                  close()  关闭文件
+
+   读 ： read()  readline() readlines()
+   写 ： write()  writelines()
+
+   打开方式 ：  r  w  a  +  b
+
+练习：
+
+编写一个程序，向一个文件中不断写入如下内容：
+
+   1.  2019-1-1  18:18:18
+   2.  2019-1-1  18:18:20
+   3.  2019-1-1  18:18:30
+
+要求每隔2s 写入一条，每条占一行， 行号 + 当前时间
+如果程序结束，再次启动时要求行号能够衔接
+
+cookie:
+
+    import time
+
+    time.sleep(sec)
+    功能： 让程序延迟sec秒后继续执行
+
+    time.time()
+
+    time.ctime()
+
+cookie:
+    ipv6 表达方式  8组每组4位16进制数
+    
+    ipv6 : fe80:0000:0000:0000:0306:c497:1c2c:924a
+           fe80::306:c497:1c2c:924a
+
+

@@ -1,0 +1,41 @@
+练习:
+
+1. 匹配一段文字中所有数字包含
+   整数  小数  正数   负数  百分数   分数
+   12   1.6   11.5  -5   46.8%   1/3
+
+   re.findall(r"-?\d+\.?/?\d*%?","12  1.34  2/3  -5.4  40.25%")
+
+
+2. 匹配一个邮箱格式的字符串
+   xxxx@xxx.com
+   xxxx@xxx.cn
+
+   re.findall(r'\w+@\w+\.com|\w+@\w+\.cn',"wangwc@tedu.cn,lvze@126.com")
+
+3. 获取大写字母开头单词
+   Hello  I  A  CBD  iPython(不算)
+
+   re.findall(r'\b[A-Z]\w*',"Hello  I am world  CBD iPython")
+
+
+练习： 编写一个函数，传入端口名称，返回这个端口运行情况中所描述
+的address地址信息。
+
+      提示： 每段之间有空行
+            每段首单词是端口名
+            端口名可能很复杂哦
+
+作业： 熟练正则表达式元字符和re模块用法
+
+
+
+
+
+
+
+
+
+
+
+

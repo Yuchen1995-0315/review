@@ -1,0 +1,37 @@
+练习：
+
+1. 创建数据库 books，默认编码utf8
+
+create database books charset=utf8;
+
+2. 数据库中创建表 book
+   字段如下
+ id  title(书名) author(作者)
+ publication(出版社) price(定价) comment(备注)
+
+create table book (id int primary key auto_increment,title varchar(32) not null,author varchar(32) not null,publication varchar(64),price decimal(5,2),comment text);
+
+
+3. 插入若干数据
+   price 区间 ： 30 -- 75
+   出版社 ： 中国教育，机械工业，中国邮电，人民教育，中国文学
+   作则： 老舍  钱钟书  鲁迅  张爱玲 金庸  三毛
+
+ insert into book (title,author,price,publication) values ('朝花夕拾','鲁迅',68,'中国邮电出版社');
+
+4. 查找
+   查找所有四十多元的树，只看书名，作者，价格
+   查找老舍写的 又是 中国教育出版的
+   查找备注不是空的记录
+   查找价格大于60元，或者作者为鲁迅的书，只看作者，书名和价格
+
+作业： 1. 熟练关键字和语句
+      2. 完成未完成的练习
+      3. 美团订单信息如果用数据库怎么存
+
+
+
+
+
+
+

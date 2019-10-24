@@ -1,0 +1,109 @@
+前情回顾
+
+1. 索引
+
+   索引效率
+   索引分类 ：  index   unique  primary key
+   查看索引 ： desc [tb]
+             show index from [tb]
+   删除索引 : drop index [索引名] on  [tb]
+
+   添加删除主键：
+   alter table [tb] add primary key(id)
+   alter table [tb]  drop primary key
+
+   树形结构： 索引常用结构
+
+2. 外键约束
+
+   foreign key
+
+       A(字段) ---> B(主键)
+        可重复      不可重复
+          多          1
+      foreign key
+
+   constraint [外键名称] foreign key [本表外键字段] references [关联表](关联表主键)
+
+   * 创建表时使用
+   * alter table [tb] add ...
+
+   删除外键: alter table [tb] drop foreign key [外键名]
+
+   级联动作：
+        restrict : 如果主表记录有外键关联，则不允许修改和删除
+        cascade ： 如果主表记录有外键关联，修改或者删除主表记录，从表也会被修改或删除
+
+        set null：如果主表记录有外键关联，修改或者删除主表记录，从表也对应记录变为null
+
+3. 表关联设计
+
+   一对一
+
+   一对多
+
+   多对多
+
+作业: 作者表
+     出版社表
+     图书表
+
+          * 设计三个表的内容
+          * 画er模型，设计三个表的关系
+          * 创建出相应的表来
+
+  出版社表
+  create table `出版社` (id int primary key auto_increment,名称 varchar(64),创刊日期 date,地址 varchar(128),电 话 char(11));
+
+  作家表
+  create table `作家` (id int primary key auto_increment,姓名 varchar(32),性别 char,年龄 tinyint,籍贯 char(50),备注 text);
+
+  图书表
+  create table `图书` (id int primary key auto_increment,书名 varchar(64),出版日期 date,价格 decimal(5,2),pid int default null,aid int default null,constraint p_fk foreign key(pid) references 出版社(id),constraint a_fk foreign key(aid) references 作家(id));
+
+  关系表
+  create table publication_author (author_id int not null,publication_id int not null,`签约时间` datetime default now(),primary key(author_id,publication_id),constraint author_fk foreign key(author_id) references 作家(id),constraint publication_fk foreign key(publication_id) references 出版社(id));
+
+练习1  使用 class1 和 interest
+
+ 1. 查询报兴趣班的同学姓名以及他们的兴趣
+  select * from class1 as c1 inner join interest as it on c1.name = it.name;
+
+ 2. 获取班级所有同学姓名，如果报了兴趣班则显示兴趣信息
+ select c1.name,it.hobby from class1 as c1 left join interest as it on c1.name=it.name;
+
+ 3. 查看兴趣班所有兴趣类别选项，如果有人报名，则显示报名学生信息
+  select c1.name,it.hobby from class1 as c1 right join interest as it on c1.name=it.name;
+
+
+练习： 使用class1表完成
+      编写一个函数，参数传入两个人的id，返回两个人的分数差
+
+       create function st4(uid1 int,uid2 int)
+    -> returns float
+    -> begin
+    -> set @val1=(select score from class1 where id=uid1);
+    -> set @val2=(select score from class1 where id=uid2);
+    -> set @r=@val1-@val2;
+    -> return @r;
+    -> end $$
+
+     编写存储过程，传入学生id，通过out类型参数获取该学生的年龄
+      delimiter $$
+mysql> create procedure get_age(in uid int,out num int)
+    -> begin
+    -> declare val int;
+    -> select age from class1 where id=uid into val;
+    -> set num=val;
+    -> end $$
+
+    mysql> delimiter ;
+    mysql> set @age=0;
+    mysql> call get_age(3,@age);
+
+
+作业 : 1. 完成用户，朋友圈，评论表的创建，及表关系的表达
+      2. 视图，存储过程和函数，事务的概念理解
+
+
+

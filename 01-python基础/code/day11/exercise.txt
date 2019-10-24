@@ -1,0 +1,3 @@
+中秋节作业
+参照信息管理系统架构，重构购物车(mvc).
+                    day08/day07_exercise/shopping.py

@@ -1,0 +1,105 @@
+前情回顾
+
+1. 表连接查询
+
+   内连接 ： [tb1] inner join [tb2]  on 条件
+   左连接 ： [左表] left join [右表]  on 条件
+   右连接 ： [左表] right join [右表]  on 条件
+
+2. 视图
+   create [or replace] view [view_name] as [select..]
+
+   drop view [if exists] [view]
+
+3. 函数和存储过程
+
+   函数： 有返回值，参数只能是输入，多用于查找操作
+
+   存储过程： 没有返回值，参数分为in out inout，更类似语句集合
+
+   delimiter [符号]
+
+   create function name(id int,) returns [return_type]
+   begin
+   语句1；
+   语句2；
+   return .....;
+   end
+
+   create procedure name(in id int,)
+   begin
+   语句1；
+   语句2；
+   end
+
+4. 事务控制
+
+   一个数据操作的完整过程
+
+   原子性   一致性   隔离性   持久性
+
+   begin;
+   语句1；
+   语句2；
+   commit； 提交操作
+   rollback； 回滚操作
+
+
+第一范式： 要求每个字段的数据是不可分割的简单数据，而不是集合体
+
+第二范式： 要求表中一定有一个字段内容可以唯一确定记录（主键），
+         其他字段数据之间没有依赖关系
+
+第三范式： 要求表中记录不会出现重复的数据带来冗余，多个表内也不会
+         出现相同数据字段
+
+
+远程登录： 看下root用户使用的host是否为%,不是修改下
+          use mysql
+          update user set host='%' where user='root';
+
+          刷新权限
+          flush privileges;
+
+
+练习：  创建数据 dict 使用utf8编码
+        create database dict charset=utf8;
+
+       创建表 words 分为三个字段
+        id    word   mean
+        create table words (id int primary key auto_increment,word char(32) not null,mean varchar(512),index(word));
+
+       将dict.txt 中的所有单词存入到该数据表当中
+
+数据库文件存储方法：
+
+    1. 存储文件的路径 （varchar）
+
+      优点： 占用数据库空间小，调取方便
+      缺点： 文件并不随数据库存在，如果路径变化需要修改内容多
+
+    2. 将文件存储在数据库中  （blob）
+
+      优点： 文件在数据库中存在可以随数据库迁移
+      缺点： 从数据库中提取文件的读写效率低
+
+练习： 使用数据库支持登录注册
+
+      注册： 输入信息 --》 存储到数据库
+      user :   id   name  passwd
+      要求： 用户名不能重复
+
+      登录： 输入信息 --》 通过数据库查询比对
+
+作业： 1. 整理数据库部分
+      2. 并发编程，socket，http协议，文件读写
+
+
+
+
+
+
+
+
+
+
